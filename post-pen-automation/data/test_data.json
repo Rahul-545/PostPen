@@ -1,0 +1,9 @@
+{
+  "login": {
+    "username": "test_user",
+    "password": "secure_password"
+  },
+  "post": {
+    "content": "This is a sample post for testing automation with Playwright."
+  }
+}
