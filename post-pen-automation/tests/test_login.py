@@ -1,36 +1,23 @@
 import pytest
-from playwright.sync_api import Page
 from pages.login_page import LoginPage
+from config.credentials import TEST_EMAIL, TEST_PASSWORD
+from data.test_data import TestData
 
-@pytest.mark.login
-def test_login(page: Page):
-    login_page = LoginPage(page)
-    login_page.navigate()
-    
-    # Replace with actual credentials
-    username = "test_user"
-    password = "test_password"
-    
-    login_page.enter_username(username)
-    login_page.enter_password(password)
-    login_page.submit()
+class TestLogin:
+    @pytest.fixture(autouse=True)
+    def setup(self, page):
+        self.login_page = LoginPage(page)
 
-    # Add assertions to verify successful login
-    assert login_page.is_logged_in()  # Example assertion, implement this method in LoginPage
+    def test_valid_login(self):
+        self.login_page.navigate_to_login() \
+            .enter_email(TEST_EMAIL) \
+            .enter_password(TEST_PASSWORD) \
+            .submit_form() \
+            .verify_login_success()
 
-@pytest.mark.parametrize("username, password", [
-    ("valid_user", "valid_password"),
-    ("invalid_user", "invalid_password"),
-])
-def test_login_with_parametrization(page: Page, username, password):
-    login_page = LoginPage(page)
-    login_page.navigate()
-    
-    login_page.enter_username(username)
-    login_page.enter_password(password)
-    login_page.submit()
-
-    if username == "valid_user":
-        assert login_page.is_logged_in()  # Example assertion for valid user
-    else:
-        assert login_page.is_login_failed()  # Example assertion for invalid user
+    def test_invalid_password(self):
+        with pytest.raises(Exception):
+            self.login_page.navigate_to_login() \
+                .enter_email(TEST_EMAIL) \
+                .enter_password("wrongpassword") \
+                .submit_form()

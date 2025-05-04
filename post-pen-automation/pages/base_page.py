@@ -1,18 +1,30 @@
+from playwright.sync_api import Page
+from utils.logging import logger
+from config.config import TIMEOUT
+
 class BasePage:
-    def __init__(self, page):
+    def __init__(self, page: Page):
         self.page = page
+        self.timeout = TIMEOUT
 
-    async def navigate_to(self, url):
-        await self.page.goto(url)
+    def navigate(self, url):
+        self.page.goto(url)
+        logger.info(f"Navigated to {url}")
+        return self
 
-    async def wait_for_selector(self, selector):
-        await self.page.wait_for_selector(selector)
+    def fill(self, selector, text):
+        self.page.fill(selector, text)
+        logger.info(f"Filled {selector} with text")
+        return self
 
-    async def click(self, selector):
-        await self.page.click(selector)
+    def click(self, selector):
+        self.page.click(selector)
+        logger.info(f"Clicked {selector}")
+        return self
 
-    async def fill(self, selector, value):
-        await self.page.fill(selector, value)
+    def wait_for_selector(self, selector):
+        self.page.wait_for_selector(selector, timeout=self.timeout)
+        return self
 
-    async def get_text(self, selector):
-        return await self.page.text_content(selector)
+    def get_text(self, selector):
+        return self.page.text_content(selector)
