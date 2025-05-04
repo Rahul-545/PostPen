@@ -9,13 +9,13 @@ def configure_playwright():
         },
         "timeout": 30000,
         "browser": "chromium",
-        "base_url": "https://www.linkedin.com",
+        "base_url": "https://postpen.ai/",
     }
 
 if __name__ == "__main__":
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
         page: Page = browser.new_page()
-        page.goto("https://www.linkedin.com")
+        page.goto("https://postpen.ai/")
         # Add any additional setup or teardown logic here
         browser.close()
