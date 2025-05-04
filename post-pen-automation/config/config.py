@@ -1,6 +1,8 @@
 from pathlib import Path
 
-BASE_URL = "https://your-app-domain.com"  # Update with your actual domain
+BASE_URL = "https://postpen.ai/"  # Update with your actual domain
+LOGIN_URL = "https://app.postpen.ai/auth?signup=true"    # Login page URL
+SIGNUP_URL = "https://app.postpen.ai/auth"  # Signup page URL
 BROWSER = "chromium"
 HEADLESS = False
 TIMEOUT = 30000
