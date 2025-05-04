@@ -1,0 +1,5 @@
+2025-05-04 20:52:23,868 - INFO - Navigated to https://postpen.ai/
+2025-05-04 20:52:24,944 - INFO - Clicked //span[normalize-space()='Log In']
+2025-05-04 20:52:27,785 - INFO - Filled //input[@id='email'] with text
+2025-05-04 20:52:27,820 - INFO - Filled //input[@id='password'] with text
+2025-05-04 20:52:28,053 - INFO - Clicked //button[@type='submit']
